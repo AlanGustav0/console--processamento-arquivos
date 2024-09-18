@@ -5,9 +5,9 @@ namespace ByteBankIO
 {
     public class FileProcess
     {
-        public static void DoWork()
+        public static void DoWork(string filePath)
         {
-            var filePath = "contas.txt";
+            
             var currentBytes = -1;
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
 
@@ -22,7 +22,7 @@ namespace ByteBankIO
             }
             sw.Stop();
 
-            Console.WriteLine($"Memória utilizada: {Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024} mb");
+            Console.WriteLine($"\nMemória utilizada: {Process.GetCurrentProcess().WorkingSet64 / 1024 / 1024} mb");
             Console.WriteLine($"Tempo de processamento: {sw.ElapsedMilliseconds} ms");
             Console.ReadLine();
         }
