@@ -43,5 +43,25 @@ namespace ByteBankIO
 
             Saldo += valor;
         }
+
+        public static ContaCorrente ConvertStringToAccount(string line)
+        {
+            var paths = line.Split(" ");
+
+            var agency = int.Parse(paths[0]);
+            var number = int.Parse(paths[1]);
+            var balance = double.Parse(paths[2].Replace(".",","));
+            var holderName = paths[3];
+
+            var holder = new Cliente();
+
+            holder.Nome = holderName;
+
+            var conta = new ContaCorrente(agency, number);
+            conta.Depositar(balance);
+            conta.Titular = holder;
+
+            return conta;
+        }
     }
 }
