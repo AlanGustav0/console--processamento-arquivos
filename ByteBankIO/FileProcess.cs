@@ -42,7 +42,7 @@ namespace ByteBankIO
                     var line = reader.ReadLine();
                     var account = ContaCorrente.ConvertStringToAccount(line!);
 
-                    var sucessMessage = $"Account: {account.Numero} | Agency: {account.Agencia} | Balance: {account.Saldo}";
+                    var sucessMessage = $"Titular: {account.Titular.Nome}\nAccount: {account.Numero} | Agency: {account.Agencia} | Balance: {account.Saldo}\n";
 
                     Console.WriteLine(sucessMessage);
                 }
