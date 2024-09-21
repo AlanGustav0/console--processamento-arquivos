@@ -2,6 +2,7 @@
 
 partial class Program
 {
+    
     static void CreateFile()
     {
         //File path
@@ -23,5 +24,20 @@ partial class Program
             stream.Write(bytes, 0, bytes.Length);
         }
     }
+
+    static void CreateWithStreamWriter()
+    {
+        //File path
+        var filePath = "exportedAccountsStream.csv";
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        using(var writer = new StreamWriter(stream))
+        {
+            //Create line file
+            var accounts = "457, 7795, 4585.40, Pedro Sampaio";
+            writer.Write(accounts);
+        }
+    }
 }
+
 
