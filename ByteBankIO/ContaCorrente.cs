@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace ByteBankIO
 {
@@ -45,7 +40,7 @@ namespace ByteBankIO
             Saldo += valor;
         }
 
-        public static ContaCorrente ConvertStringToAccount(string line)
+        public static ContaCorrente ConvertStringToAccount(string line, int parameter)
         {
 
             //Quebra de linha utilizando Split
@@ -57,26 +52,39 @@ namespace ByteBankIO
             //var holderName = paths[3];
 
             //Quebra de linha utilizando Span
+            char index = ',';
+
+            if(parameter == 2)
+            {
+                Console.WriteLine("TIPO DE ARQUIVO DEFINIDO: TXT");
+                index = ' ';
+            }
+            else
+            {
+                Console.WriteLine("TIPO DE ARQUIVO DEFINIDO: CSV");
+            }
+
+
             var span = line.AsSpan(line.IndexOf(line.First()));
 
-            var firstPosition = span.IndexOf(' ');
+            var firstPosition = span.IndexOf(index);
 
             //get agency with span
             var agency = int.Parse(span.Slice(0, firstPosition));
 
             //get number with span
             span = span.Slice(firstPosition + 1);
-            firstPosition = span.IndexOf(' ');
+            firstPosition = span.IndexOf(index);
             var number = int.Parse(span.Slice(0, firstPosition), provider: CultureInfo.InvariantCulture);
 
             //get balance with span
             span = span.Slice(firstPosition + 1);
-            firstPosition = span.IndexOf(' ');
+            firstPosition = span.IndexOf(index);
             var balance = double.Parse(span.Slice(0, firstPosition).ToString().Replace(".", ","), provider: CultureInfo.InvariantCulture);
 
             //get holderName with span
             span = span.Slice(firstPosition + 1);
-            firstPosition = span.IndexOf(' ');
+            firstPosition = span.IndexOf(index);
             var holderName = span.Slice(0).ToString();
 
             var holder = new Cliente();

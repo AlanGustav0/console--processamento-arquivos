@@ -5,7 +5,7 @@ namespace ByteBankIO
 {
     public class FileProcess
     {
-        public static void DoWork(string filePath, int process)
+        public static void DoWork(int process, int filetype, string filePath = "contas.txt")
         {
             var sw = new Stopwatch();
             sw.Start();
@@ -13,13 +13,13 @@ namespace ByteBankIO
             switch (process)
             {
                 case 1:
-                    ExecuteWithStreamReader(filePath);
+                    ExecuteWithStreamReader(filePath, filetype);
                     break;
                 case 2:
-                    ExecuteWithFileStream(filePath);
+                    ExecuteWithFileStream(filePath, filetype);
                     break;
                 default:
-                    ExecuteWithStreamReader(filePath);
+                    ExecuteWithStreamReader(filePath, filetype);
                     break;
             }
 
@@ -31,7 +31,7 @@ namespace ByteBankIO
             Console.ReadLine();
         }
 
-        private static void ExecuteWithStreamReader(string filePath)
+        private static void ExecuteWithStreamReader(string filePath,int filetype)
         {
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -40,7 +40,7 @@ namespace ByteBankIO
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var account = ContaCorrente.ConvertStringToAccount(line!);
+                    var account = ContaCorrente.ConvertStringToAccount(line!, filetype);
 
                     var sucessMessage = $"Titular: {account.Titular.Nome}\nAccount: {account.Numero} | Agency: {account.Agencia} | Balance: {account.Saldo}\n";
 
@@ -50,7 +50,7 @@ namespace ByteBankIO
             };
         }
 
-        private static void ExecuteWithFileStream(string filePath)
+        private static void ExecuteWithFileStream(string filePath, int filetype)
         {
             var currentBytes = -1;
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);

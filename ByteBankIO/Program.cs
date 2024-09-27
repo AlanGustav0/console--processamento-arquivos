@@ -4,11 +4,15 @@ partial class Program
 {
     static void Main(string[] args)
     {
-        CreateFile();
-        CreateWithStreamWriter();
-        var filePath = "contas.txt";
 
-        FileProcess.DoWork(filePath,1);
+        var filePath = CreateWithStreamWriter();
+
+        Console.WriteLine("INSIRA TIPO DE ARQUIVO:");
+        Console.WriteLine("1 - CSV:");
+        Console.WriteLine("2 - TEXT:");
+        var fileType = int.Parse(Console.ReadLine()!);
+
+        FileProcess.DoWork(1,fileType,filePath);
     }
 
 }

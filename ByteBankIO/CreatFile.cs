@@ -25,18 +25,35 @@ partial class Program
         }
     }
 
-    static void CreateWithStreamWriter()
+    static string CreateWithStreamWriter()
     {
         //File path
+        Console.WriteLine("INICIO DA CRIAÇÃO DE CONTA");
         var filePath = "exportedAccountsStream.csv";
+
+        Console.WriteLine("Insira o número da conta: ");
+        var account = Console.ReadLine();
+
+        Console.WriteLine("Insira o número da agência: ");
+        var agency = Console.ReadLine();
+
+        Console.WriteLine("Insira o valor do saldo: ");
+        var ballance = Console.ReadLine();
+
+        Console.WriteLine("Insira nome do titular: ");
+        var holderName = Console.ReadLine();
 
         using (var stream = new FileStream(filePath, FileMode.Create))
         using(var writer = new StreamWriter(stream))
         {
             //Create line file
-            var accounts = "457, 7795, 4585.40, Pedro Sampaio";
+            var accounts = $"{account}, {agency}, {ballance}, {holderName}";
             writer.Write(accounts);
         }
+
+        if (File.Exists(filePath)) Console.WriteLine("CONTA CADASTRADA COM SUCESSO!");
+
+        return filePath;
     }
 }
 
