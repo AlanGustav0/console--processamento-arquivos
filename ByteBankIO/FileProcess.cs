@@ -5,7 +5,7 @@ namespace ByteBankIO
 {
     public class FileProcess
     {
-        public static void DoWork(int process, int filetype, string filePath = "contas.txt")
+        public static void DoWork(int process, string filetype, string filePath = "contas.txt")
         {
             var sw = new Stopwatch();
             sw.Start();
@@ -16,7 +16,7 @@ namespace ByteBankIO
                     ExecuteWithStreamReader(filePath, filetype);
                     break;
                 case 2:
-                    ExecuteWithFileStream(filePath, filetype);
+                    ExecuteWithFileStream(filePath);
                     break;
                 default:
                     ExecuteWithStreamReader(filePath, filetype);
@@ -31,7 +31,7 @@ namespace ByteBankIO
             Console.ReadLine();
         }
 
-        private static void ExecuteWithStreamReader(string filePath,int filetype)
+        private static void ExecuteWithStreamReader(string filePath, string filetype)
         {
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -50,7 +50,7 @@ namespace ByteBankIO
             };
         }
 
-        private static void ExecuteWithFileStream(string filePath, int filetype)
+        private static void ExecuteWithFileStream(string filePath)
         {
             var currentBytes = -1;
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);

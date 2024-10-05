@@ -40,7 +40,7 @@ namespace ByteBankIO
             Saldo += valor;
         }
 
-        public static ContaCorrente ConvertStringToAccount(string line, int parameter)
+        public static ContaCorrente ConvertStringToAccount(string line, string type)
         {
 
             //Quebra de linha utilizando Split
@@ -54,12 +54,12 @@ namespace ByteBankIO
             //Quebra de linha utilizando Span
             char index = ',';
 
-            if(parameter == 2)
+            if(type.Equals("txt"))
             {
                 Console.WriteLine("TIPO DE ARQUIVO DEFINIDO: TXT");
                 index = ' ';
             }
-            else
+            else if(type.Equals("csv"))
             {
                 Console.WriteLine("TIPO DE ARQUIVO DEFINIDO: CSV");
             }

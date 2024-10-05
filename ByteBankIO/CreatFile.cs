@@ -25,11 +25,12 @@ partial class Program
         }
     }
 
-    static string CreateWithStreamWriter()
+    static string CreateWithStreamWriter(string fileType)
     {
-        //File path
+        string accounts = "";
+
         Console.WriteLine("INICIO DA CRIAÇÃO DE CONTA");
-        var filePath = "exportedAccountsStream.csv";
+        var filePath = $"exportedAccountsStream.{fileType}";
 
         Console.WriteLine("Insira o número da conta: ");
         var account = Console.ReadLine();
@@ -46,8 +47,15 @@ partial class Program
         using (var stream = new FileStream(filePath, FileMode.Create))
         using(var writer = new StreamWriter(stream))
         {
-            //Create line file
-            var accounts = $"{account}, {agency}, {ballance}, {holderName}";
+            if(fileType.Equals("csv"))
+            {
+                accounts = $"{account}, {agency}, {ballance}, {holderName}";
+
+            }else if(fileType.Equals("txt"))
+            {
+                accounts = $"{account} {agency} {ballance} {holderName}";
+            }
+            
             writer.Write(accounts);
         }
 
