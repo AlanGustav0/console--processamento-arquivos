@@ -1,30 +1,29 @@
 ﻿using ByteBankIO;
-using System.Text;
 
-class Program
+partial class Program
 {
     static void Main(string[] args)
     {
-        var enderecoDoArquivo = "contas.txt";
-        var numeroDeBytesLidos = -1;
-        var fluxoDoArquivo = new FileStream(enderecoDoArquivo, FileMode.Open, FileAccess.Read);
+        string fileType = "";
+        Console.WriteLine("INSIRA TIPO DE ARQUIVO:");
+        Console.WriteLine("1 - CSV:");
+        Console.WriteLine("2 - TXT:");
 
-        var buffer = new byte[1024]; // 1KB
-
-        while (numeroDeBytesLidos != 0)
+        var file = int.Parse(Console.ReadLine()!);
+        if(file == 1)
         {
-            numeroDeBytesLidos = fluxoDoArquivo.Read(buffer, 0, 1024);
-            EscreverBuffer(buffer);
+            fileType = "csv";
+        }else if(file == 2)
+        {
+            fileType = "txt";
         }
+        
 
-        Console.ReadLine();
+        var filePath = CreateWithStreamWriter(fileType);
+
+        
+
+        FileProcess.DoWork(1,fileType,filePath);
     }
 
-    static void EscreverBuffer(byte[] buffer)
-    {
-        var utf8 = new UTF8Encoding();
-
-        var texto = utf8.GetString(buffer);
-        Console.Write(texto);
-    }
 }
